@@ -11,7 +11,7 @@ export default class TodoList {
 
     } else {
       parsedAllTodo.forEach((item, index) => {
-        console.log(`${index + 1} - ${item.todo}`);
+        console.log(`${index + 1} - [${item.isCompleted ? 'x' : ' '}] ${item.todo}`);
       });
     }
   }
@@ -24,7 +24,7 @@ export default class TodoList {
     } 
   }
 
-  deleteTodo(number) {
+  checkParams(number) {
     if (number === undefined) {
       console.error('Nem lehetséges az eltávolítás: nem adott meg indexet!')
 
@@ -34,13 +34,25 @@ export default class TodoList {
     } else if (isNaN(number)) {
       console.error('Nem lehetséges az eltávolítás: a megadott index nem szám!')
     }
-    
-    else {
+  }
+
+  deleteTodo(number) {
+    if (number !== undefined && number <= parsedAllTodo.length && !isNaN(number)) {
       parsedAllTodo.splice(number - 1, 1);
       writeToTheList(JSON.stringify(parsedAllTodo));
+    
+    } else {
+      this.checkParams(number);
     }
   }
 
   changeToCompleted(number) {
+    if (number !== undefined && number <= parsedAllTodo.length && !isNaN(number)) {
+      parsedAllTodo[number - 1].isCompleted = true;
+      writeToTheList(JSON.stringify(parsedAllTodo));
+    
+    } else {
+      this.checkParams(number);
+    }
   }
 }

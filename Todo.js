@@ -5,8 +5,4 @@ export default class Todo {
     this.todo = todo;
     this.isCompleted = isCompleted;
   }
-
-  changeCompleted() {
-    this.isCompleted = true;
-  }
 }
